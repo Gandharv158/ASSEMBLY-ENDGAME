@@ -2,14 +2,14 @@ import clsx from 'clsx'
 import './App.css'
 import {languages} from './languages'
 import { useState } from 'react'
-import {getFarewellText} from './utils'
+import {getFarewellText , getRandomWord} from './utils'
 
 const Letters=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 
 function App() {
   const [guessedLetters, setguessedLetters] = useState([]);
-  const [currentWord, setCurrentWord] = useState("REACT");
+  const [currentWord, setCurrentWord] = useState(getRandomWord());
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
   let isGameOver = false;
   let counter = 0;
@@ -67,7 +67,7 @@ function App() {
 
   function handleNewGame() {
     setguessedLetters([]);
-    setCurrentWord("REACT"); // You can randomize this word from a list if needed
+    setCurrentWord(getRandomWord()); 
     isGameWon = false;
     isGameLost = false;
     isGameOver = false;
@@ -82,7 +82,7 @@ function App() {
    }
    else if(isGameLost){
     return(
-      <div className="Game-lost">You Lost! Better start learning Assembly.</div>
+      <div className="Game-lost">You Lost.The word was "{currentWord}"! Better start learning Assembly.</div>
     )
    }
    else if(wrongGuessCount > 0 ){
